@@ -149,22 +149,12 @@ void sendElements (Stack *original, Stack *clone) {
 
   createStack(clone, length);
 
-
   for (i = 0; i < length; i++) {
     pushElement(popElement(original), clone);
   }
 }
 
 int main() {
-
-  Stack stack1;
-  Stack stack2;
-  int lengthInput;
-
-  printf("Define the Stack's length: ");
-  scanf("%d", &lengthInput);
-
-  createStack(&stack1, lengthInput);
 
   return 0;
 }
