@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+main () {
+
+  clear
+
+  if [[ $# -ne 1 ]]; then
+
+    echo "Wrong number of given arguments"
+
+    exit 1
+
+  fi
+
+  if [[ ! -d "./dist" ]]; then
+
+    echo "Creating 'dist' directory"
+
+    mkdir ./dist
+
+  fi
+
+  regexp='([a-zA-Z0-9\-]+)+\.cpp'
+
+  [[ $1 =~ $regexp ]]
+
+  result=${BASH_REMATCH[1]}
+
+  inotifywait -qme close_write $1 |
+
+  while read -r filename event; do
+
+    clear
+
+    g++ $filename -o ./dist/$result && ./dist/$result
+
+  done
+
+}
+
+if [[ ! $(which inotifywait) ]]; then
+
+  echo "--> You must install inotify-tools first"
+
+  echo "    Run 'sudo apt-get instal inotify-tools'"
+
+  exit 1
+
+fi
+
+main "$@"
