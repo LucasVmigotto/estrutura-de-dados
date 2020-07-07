@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  shell:
+    build:
+      context: ./docker
+    tty: true
+    working_dir: /app
+    volumes:
+      - .:/app:delegated
