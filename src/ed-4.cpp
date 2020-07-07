@@ -7,21 +7,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * Line
+ *
+ * Properties:
+ * - int *elements: An array of char values
+ * - int length: Indicate the line length
+*/
 typedef struct {
   char* elements;
   int length;
 } Line;
 
+/*
+ * This method create the Line
+ *
+ * Define the length as 0 and initialize
+ * the line of elements
+ *
+ * @param The line that will be crated
+*/
 void createLine (Line *line) {
   line->elements = (char *) malloc(sizeof(char));
   line->length = 0;
 }
 
+/*
+ * Empty Line
+ *
+ * This method check if the Line
+ * is empty
+ *
+ * @param The line that will be checked
+*/
 bool emptyLine (Line *line) {
   return !line->elements;
 }
 
-void appendToStart (char element, Line *line) {
+/*
+ * Append to the Start
+ *
+ * Append the given element to the
+ * end of the line
+ *
+ * @param The element to be added
+ * @param The line that will be used
+*/
+void appendToEnd (char element, Line *line) {
   int i;
   char *temp = (char *) malloc(line->length + 1 * sizeof(char));
   for (i = 0; i < line->length; i++) {
@@ -36,6 +68,15 @@ void appendToStart (char element, Line *line) {
   line->length++;
 }
 
+/*
+ * Enter in line
+ *
+ * Insert an element to the right
+ * position at the line
+ *
+ * @param The element to be added
+ * @param The line that will be used
+*/
 void enterInLine (char element, Line *line) {
   if (emptyLine(line)) {
     createLine(line);
@@ -43,10 +84,18 @@ void enterInLine (char element, Line *line) {
   if (!line->elements[line->length]) {
     line->elements[line->length++] = element;
   } else {
-    appendToStart(element, line);
+    appendToEnd(element, line);
   }
 }
 
+/*
+ * Print line elements
+ *
+ * Print all the line elements already
+ * added
+ *
+ * @param The line that will be printed
+*/
 void printLine (Line *line) {
   int i;
   for (i = 0; i < line->length; i++) {
