@@ -11,12 +11,15 @@
  * Line
  *
  * Properties:
- * - int *elements: An array of char values
+ * - char *elements: An array of char values
  * - int length: Indicate the line length
+ * - char pushIn: An unexpected out of order
+ * element that cutted in the line
 */
 typedef struct {
-  char* elements;
+  char *elements;
   int length;
+  void *pushIn;
 } Line;
 
 /*
@@ -30,6 +33,7 @@ typedef struct {
 void createLine (Line *line) {
   line->elements = (char *) malloc(sizeof(char));
   line->length = 0;
+  line->pushIn = nullptr;
 }
 
 /*
@@ -98,6 +102,9 @@ void enterInLine (char element, Line *line) {
 */
 void printLine (Line *line) {
   int i;
+  if (line->pushIn) {
+    printf(" %d", line->pushIn);
+  }
   for (i = 0; i < line->length; i++) {
     printf(" %d", line->elements[i]);
   }
@@ -118,6 +125,10 @@ void printLine (Line *line) {
 void lineWalk (Line *line) {
   if (emptyLine(line) || line->length == 0) {
     printf("Empty");
+    return;
+  }
+  if (line->pushIn) {
+    line->pushIn = nullptr;
     return;
   }
   char *temp = (char *) malloc(line->length - 1 * sizeof(char));
@@ -148,7 +159,24 @@ int length (Line *line) {
       go = false;
     }
   }
-  return i;
+  return line->pushIn ? i + 1 : i;
+}
+
+/*
+ * Cut in Line
+ *
+ * This method puts the given element
+ * @param element in the 'first' position
+ * of the line, not as the fist element,
+ * but as a special that will be attended
+ * first than the other
+ *
+ * @param element: The element that will
+ * cut in the line of elements
+ * @param line: The line that will be modified
+*/
+void cutInLine (char element, Line *line) {
+  line->pushIn = (void *) element;
 }
 
 int main () {
@@ -156,39 +184,28 @@ int main () {
 
   printf("Created line:\n");
   createLine(&line);
-
   enterInLine(2, &line);
-
   printLine(&line);
-
   enterInLine(4, &line);
-
   printLine(&line);
-
   enterInLine(6, &line);
-
   printLine(&line);
-
+  printf("Cut in line: 10\n");
+  cutInLine(10, &line);
+  printLine(&line);
+  printf("Line Walk\n");
+  lineWalk(&line);
+  printLine(&line);
   printf("Line length %d\n", length(&line));
-
   printf("Line Walk\n");
-
   lineWalk(&line);
-
   printLine(&line);
-
   printf("Line Walk\n");
-
   lineWalk(&line);
-
   printLine(&line);
-
   enterInLine(8, &line);
-
   printLine(&line);
-
   lineWalk(&line);
-
   printLine(&line);
 
   return 0;
