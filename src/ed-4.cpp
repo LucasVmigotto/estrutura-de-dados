@@ -129,6 +129,28 @@ void lineWalk (Line *line) {
   line->length--;
 }
 
+/*
+ * Length
+ *
+ * This function simulate the length
+ * attribute, returning the line's length
+ *
+ * @param The line that will be counted
+*/
+int length (Line *line) {
+  int i = 0;
+  bool go = true;
+  while (go) {
+    if (line->elements[i]) {
+      i++;
+      continue;
+    } else {
+      go = false;
+    }
+  }
+  return i;
+}
+
 int main () {
   Line line;
 
@@ -146,6 +168,8 @@ int main () {
   enterInLine(6, &line);
 
   printLine(&line);
+
+  printf("Line length %d\n", length(&line));
 
   printf("Line Walk\n");
 
