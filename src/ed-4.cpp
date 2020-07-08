@@ -101,6 +101,32 @@ void printLine (Line *line) {
   for (i = 0; i < line->length; i++) {
     printf(" %d", line->elements[i]);
   }
+  printf("\n");
+}
+
+/*
+ * Line Walk
+ *
+ * This method remove the first
+ * element of the line and puts
+ * every other element in line
+ * one position ahead.
+ *
+ * @param The line that will be
+ * manipulated
+*/
+void lineWalk (Line *line) {
+  if (emptyLine(line) || line->length == 0) {
+    printf("Empty");
+    return;
+  }
+  char *temp = (char *) malloc(line->length - 1 * sizeof(char));
+  int i;
+  for (i = 1; i < line->length; i++) {
+    temp[i - 1] = line->elements[i];
+  }
+  line->elements = temp;
+  line->length--;
 }
 
 int main () {
@@ -111,7 +137,33 @@ int main () {
 
   enterInLine(2, &line);
 
+  printLine(&line);
+
   enterInLine(4, &line);
+
+  printLine(&line);
+
+  enterInLine(6, &line);
+
+  printLine(&line);
+
+  printf("Line Walk\n");
+
+  lineWalk(&line);
+
+  printLine(&line);
+
+  printf("Line Walk\n");
+
+  lineWalk(&line);
+
+  printLine(&line);
+
+  enterInLine(8, &line);
+
+  printLine(&line);
+
+  lineWalk(&line);
 
   printLine(&line);
 
