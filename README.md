@@ -1,11 +1,13 @@
 # estrutura-de-dados
 
-## Pré requisitos
+## `watch` tool
+
+### Pré-requisitos
 
 * `inotify-tools`
 * Unix-like shell
 
-## Como usar
+### Como usar
 
 1. Clone o repositório
 
