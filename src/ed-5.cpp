@@ -7,11 +7,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * List
+ *
+ * Properties:
+ * - int info: The value of the info
+ * - Node *next: The pointer of the next
+ * item in the List
+*/
 struct Node{
 	int info;
 	Node *next;
 };
 
+/*
+ * Create the Node
+ *
+ * Create the Node in the list
+ *
+ * @param The value of the Node's info
+ * @return The value of the Node
+*/
 Node *createNode (int i) {
 	Node * aux;
 	aux = (Node *) malloc(sizeof (Node));
@@ -22,32 +38,77 @@ Node *createNode (int i) {
 	return aux;
 }
 
+/*
+ * List
+ *
+ * Properties:
+ * - Node *first: The first value of the
+ * list
+*/
 typedef struct {
-	Node * first;
+	Node *first;
 } List;
 
+/*
+ * Init the List's value
+ *
+ * Initiate the List with the first
+ * value as Null
+ *
+ * @param The List pointer that will be
+ * initialize
+*/
 void initList (List *list) {
 	list->first = NULL;
 }
 
-int emptyList (List *list) {
-  return list->first == NULL
-    ? 1
-    : 0;
+/*
+ * Empty List
+ *
+ * Return if the List is empty
+ *
+ * @param The List that will be checked
+ *
+ * @return Return True if empty
+ * or False if isn't
+*/
+bool emptyList (List *list) {
+  return list->first == NULL;
 }
 
-int insertOnStart (List *list, int i) {
+/*
+ * Insert On Start
+ *
+ * Insert the given element on the Start
+ * of the List
+ *
+ * @param The List that will be used
+ * @param The element that will be added
+ * @return Return True if the element was
+ * successfully added
+*/
+bool insertOnStart (List *list, int i) {
 	Node * newNode = createNode(i);
 	if (newNode != NULL) {
 		if (!emptyList(list)) {
 			newNode->next = list->first;
 		}
 		list->first = newNode;
-		return 1;
+		return true;
 	}
-	return 0;
+	return false;
 }
 
+/*
+ * Remove from the Start
+ *
+ * Remove an element from the start
+ * of the list
+ *
+ * @param The List that will be used to
+ * remove the element
+ * @return The element that has been removed
+*/
 int removeFromStart (List *list) {
 	Node * aux;
 	int i;
@@ -58,6 +119,14 @@ int removeFromStart (List *list) {
 	return i;
 }
 
+/*
+ * Show List
+ *
+ * Show the elements that exists in
+ * the List
+ *
+ * @param The List that will be printed
+*/
 void showList (List *list) {
 	Node *aux;
 	if (emptyList(list)) {
@@ -73,6 +142,11 @@ void showList (List *list) {
 	printf ("\n");
 }
 
+/*
+ * Test List
+ *
+ * Test the logic of the List algorithm
+*/
 void testList() {
 	List list;
 	int i;
