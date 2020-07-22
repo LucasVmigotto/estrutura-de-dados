@@ -142,27 +142,43 @@ void showList (List *list) {
 	printf ("\n");
 }
 
+int nodeCount (List *list) {
+	if (emptyList(list)) {
+		return 0;
+	}
+	int count = 0;
+	Node *aux = list->first;
+	while (aux != NULL) {
+		count++;
+    aux = aux->next;
+	}
+	return count;
+}
+
 /*
  * Test List
  *
  * Test the logic of the List algorithm
 */
-void testList() {
+void testList () {
 	List list;
 	int i;
 
-  initList(&list);
+  	initList(&list);
 
-  if (emptyList(&list)) {
+  	if (emptyList(&list)) {
 		printf ("List successfully created!\n");
-  } else {
+  	} else {
 		printf ("An error occurred during list creation\n");
-  }
+  	}
 
-  for (i = 0; i < 5; i++) {
+  	for (i = 0; i < 5; i++) {
 		insertOnStart(&list, i);
 		showList(&list);
 	}
+
+	printf("Nodes count on the list: %d\n", nodeCount(&list));
+
 	while (!emptyList(&list)) {
 		printf ("%d was removed from the List\n", removeFromStart(&list));
 		showList(&list);
