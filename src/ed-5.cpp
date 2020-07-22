@@ -142,6 +142,16 @@ void showList (List *list) {
 	printf ("\n");
 }
 
+/*
+ * Nodes count
+ *
+ * Return the node count that exists
+ * in the List
+ *
+ * @param The List that will be used to
+ * count the Nodes
+ * @return The number of nodes
+*/
 int nodeCount (List *list) {
 	if (emptyList(list)) {
 		return 0;
