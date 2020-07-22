@@ -88,7 +88,7 @@ bool emptyList (List *list) {
  * successfully added
 */
 bool insertStart (List *list, int i) {
-	Node * newNode = createNode(i);
+	Node *newNode = createNode(i);
 	if (newNode != NULL) {
 		if (!emptyList(list)) {
 			newNode->next = list->first;
@@ -166,6 +166,37 @@ int nodeCount (List *list) {
 }
 
 /*
+ * Insert in the Middle
+ *
+ * Insert the given element in the
+ * informed position, if the position is
+ * greater than the List node count
+ * the element will be inserted in the end
+ * of the List
+ *
+ * @param The List that will be used to
+ * insert the element
+ * @param The position to insert the element
+ * @param The info value to be replaced/inserted
+*/
+void insertMiddle (List *list, int position, int info) {
+  if (position > nodeCount(list)) {
+    insertStart(list, info);
+  }
+  int i;
+  List *start;
+  initList(start);
+  for (i = 0; i < nodeCount(list); i++) {
+    if (i < position ) {
+      insertStart(start, removeFromStart(list));
+    }
+  }
+  insertStart(list, info);
+  removeFromStart(start);
+  insertStart(list, removeFromStart(start));
+}
+
+/*
  * Values Average
  *
  * Return the values average that
@@ -214,6 +245,12 @@ void testList () {
 	printf("Nodes count on the list: %d\n", nodeCount(&list));
 
   printf("Average of the values of the List: %2.2f\n", valuesAverage(&list));
+
+  printf("Changing the 2nd element for '8'\n");
+
+  insertMiddle(&list, 2, 8);
+
+  showList(&list);
 
 	while (!emptyList(&list)) {
 		printf ("%d was removed from the List\n", removeFromStart(&list));
