@@ -87,7 +87,7 @@ bool emptyList (List *list) {
  * @return Return True if the element was
  * successfully added
 */
-bool insertOnStart (List *list, int i) {
+bool insertStart (List *list, int i) {
 	Node * newNode = createNode(i);
 	if (newNode != NULL) {
 		if (!emptyList(list)) {
@@ -166,6 +166,30 @@ int nodeCount (List *list) {
 }
 
 /*
+ * Values Average
+ *
+ * Return the values average that
+ * exists in the List
+ *
+ * @param The List that will be used to
+ * calculate the average
+ * @return The values average
+*/
+double valuesAverage (List *list) {
+  int values = 0, i = 0;
+  int total = nodeCount(list);
+  Node *node = list->first;
+
+  while (i < total) {
+    values += node->info;
+    node = node->next;
+    i++;
+  }
+
+  return values / nodeCount(list);
+}
+
+/*
  * Test List
  *
  * Test the logic of the List algorithm
@@ -174,20 +198,22 @@ void testList () {
 	List list;
 	int i;
 
-  	initList(&list);
+  initList(&list);
 
-  	if (emptyList(&list)) {
-		printf ("List successfully created!\n");
-  	} else {
-		printf ("An error occurred during list creation\n");
-  	}
+  if (emptyList(&list)) {
+	  printf ("List successfully created!\n");
+  } else {
+  	printf ("An error occurred during list creation\n");
+  }
 
-  	for (i = 0; i < 5; i++) {
-		insertOnStart(&list, i);
+  for (i = 0; i < 5; i++) {
+		insertStart(&list, i);
 		showList(&list);
 	}
 
 	printf("Nodes count on the list: %d\n", nodeCount(&list));
+
+  printf("Average of the values of the List: %2.2f\n", valuesAverage(&list));
 
 	while (!emptyList(&list)) {
 		printf ("%d was removed from the List\n", removeFromStart(&list));
