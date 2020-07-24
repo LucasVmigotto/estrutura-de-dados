@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /*
  * Node
@@ -184,23 +183,43 @@ void showTreeBeforeOrder (Tree *tree) {
 }
 
 /*
- * Return the grater value of the given Node
+ * Return the greatest value of the given Node
  *
  * @param node The Node that will be checked
 */
-int greaterTree (NodeBin *node) {
+int greatest (NodeBin *node) {
   return node->right == NULL
     ? node->info
-    : greaterTree(node->right);
+    : greatest(node->right);
 }
 
 /*
- * Return the grater value of the given Tree
+ * Return the greatest value of the given Tree
  *
  * @param tree The Tree that will be checked
 */
-int greater (Tree *tree) {
-	return greaterTree(tree->root);
+int greatestTree (Tree *tree) {
+	return greatest(tree->root);
+}
+
+/*
+ * Return the lowest value of the given Node
+ *
+ * @param node The Node that will be checked
+*/
+int lowest (NodeBin *node) {
+  return node->left == NULL
+    ? node->info
+    : lowest(node->left);
+}
+
+/*
+ * Return the lowest value of the given Tree
+ *
+ * @param tree The Tree that will be checked
+*/
+int lowestTree (Tree *tree) {
+	return lowest(tree->root);
 }
 
 /*
@@ -244,7 +263,8 @@ int main () {
 	if (emptyTree(&tree)) {
 		printf ("\nEmpty tree\n");
 	} else {
-		printf ("\nGreater element = %d\n", greater(&tree));
+		printf ("\nGreater element = %d\n", greatestTree(&tree));
+		printf ("\nLowest element = %d\n", lowestTree(&tree));
   }
 	printf ("\nnumero de nos da arvore = %d\n", numberOfNodes(&tree));
 
