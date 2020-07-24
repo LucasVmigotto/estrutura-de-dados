@@ -8,41 +8,95 @@
 #include <stdlib.h>
 #include <time.h>
 
+/*
+ * Node
+ *
+ * The greater value has to be ALWAYS
+ * on the RIGHT
+ * The Lower value has to be ALWAYS
+ * on the LEFT
+ *
+ * Properties:
+ * - int info: The value of the Node
+ * - strcut Node *left: The pointer to the
+ * left Node
+ * - strcut Node *right: The pointer to the
+ * right Node
+*/
 typedef struct Node {
 	int info;
 	struct Node *left;
 	struct Node *right;
 } NodeBin;
 
+/*
+ * Tree
+ *
+ * Properties:
+ * - NodeBin *root: The original and
+ * first Node
+*/
 typedef struct {
 	NodeBin *root;
 } Tree;
 
-NodeBin * createNode (int i) {
+/*
+ * Creates the Node putting the
+ * given parameter
+ *
+ * @param info The data that will
+ * be storage into the Node
+ * @return The created Node
+*/
+NodeBin * createNode (int info) {
 	NodeBin *aux = (NodeBin *) malloc(sizeof(NodeBin));
 	if (aux != NULL) {
-		aux->info = i;
+		aux->info = info;
 		aux->left = NULL;
 		aux->right = NULL;
 	}
 	return aux;
 }
 
+/*
+ * Init the given tree with Null
+ * as the value of the first Node
+ *
+ * @param tree The Tree that will be
+ * initiated
+*/
 void initTree (Tree *tree) {
 	tree->root = NULL;
 }
 
+/*
+ * Check if the given Tree is
+ * without Nodes
+ *
+ * @return True if the Tree is empty,
+ * False if isn't
+*/
 bool emptyTree (Tree *tree) {
 	return tree->root == NULL;
 }
 
+/*
+ * Insert a new Node into a existing one
+ *
+ * @param newNode The new Node that will
+ * be addded
+ * @param current The current Node that will
+ * be used to added the new one
+ * @return True when the insertion was
+ * successed
+*/
 bool insertNode (NodeBin *newNode, NodeBin *current) {
 	if (newNode->info > current->info) {
 		if (current->right == NULL) {
 			current->right = newNode;
 			return true;
 		}
-		return insertNode(newNode, current->left);
+		return insertNode(newNode, current->right);
 	}
 	else {
 		if (current->left == NULL) {
@@ -53,8 +107,18 @@ bool insertNode (NodeBin *newNode, NodeBin *current) {
 	}
 }
 
-bool insert (int i, Tree *tree) {
-	NodeBin *newNode = createNode(i);
+/*
+ * Insert into the given Tree the info
+ * into a new Node
+ *
+ * @param tree The Tree that will be used
+ * @param info The information that will
+ * be added
+ * @return True if the insertion was successed or
+ * false if a error occurred
+*/
+bool insert (Tree *tree, int info) {
+	NodeBin *newNode = createNode(info);
 	if (newNode != NULL) {
 		if (emptyTree(tree)) {
 			tree->root = newNode;
@@ -65,14 +129,26 @@ bool insert (int i, Tree *tree) {
 	return false;
 }
 
-void showNodeInOrder (NodeBin *current) {
-	if (current != NULL) {
-		showNodeInOrder(current->left);
-		printf ("%d ", current->info);
-		showNodeInOrder(current->right);
+/*
+ * Print in the console the given Node
+ * in order
+ *
+ * @param node The Node that will be printed
+*/
+void showNodeInOrder (NodeBin *node) {
+	if (node != NULL) {
+		showNodeInOrder(node->left);
+		printf ("%d ", node->info);
+		showNodeInOrder(node->right);
 	}
 }
 
+/*
+ * Print in the console the given Tree
+ * in order
+ *
+ * @param tree The Tree that will be printed
+*/
 void showTreeInOrder (Tree *tree) {
 	if (emptyTree(tree)) {
 		printf ("\nEmpty tree\n");
@@ -81,14 +157,24 @@ void showTreeInOrder (Tree *tree) {
   }
 }
 
-void showNodeBeforeOrder (NodeBin *current) {
-  if(current != NULL) {
-    printf("%d ", current->info);
-    showNodeBeforeOrder(current->left);
-    showNodeBeforeOrder(current->right);
+/*
+ * Print in the console the give Node
+ *
+ * @param node The Node that will be printed
+*/
+void showNodeBeforeOrder (NodeBin *node) {
+  if(node != NULL) {
+    printf("%d ", node->info);
+    showNodeBeforeOrder(node->left);
+    showNodeBeforeOrder(node->right);
   }
 }
 
+/*
+ * Print in the console the given Tree
+ *
+ * @param tree The Tree that will be printed
+*/
 void showTreeBeforeOrder (Tree *tree) {
   if(emptyTree(tree)) {
     printf("\nEmpty tree");
@@ -97,22 +183,43 @@ void showTreeBeforeOrder (Tree *tree) {
   }
 }
 
-int greaterTree (NodeBin *current) {
-  return current->right == NULL
-    ? current->info
-    : greaterTree(current->right);
+/*
+ * Return the grater value of the given Node
+ *
+ * @param node The Node that will be checked
+*/
+int greaterTree (NodeBin *node) {
+  return node->right == NULL
+    ? node->info
+    : greaterTree(node->right);
 }
 
+/*
+ * Return the grater value of the given Tree
+ *
+ * @param tree The Tree that will be checked
+*/
 int greater (Tree *tree) {
 	return greaterTree(tree->root);
 }
 
-int countNodes (NodeBin *current) {
-  return current != NULL
-    ? 1 + countNodes(current->left) + countNodes(current->right)
+/*
+ * Count the number of Nodes recursively
+ *
+ * @param node The Node that will be used
+*/
+int countNodes (NodeBin *node) {
+  return node != NULL
+    ? 1 + countNodes(node->left) + countNodes(node->right)
 	  : 0;
 }
 
+/*
+ * Count the nunber of Nodes into
+ * the given Tree
+ *
+ * @param tree The Tree that will be used
+*/
 int numberOfNodes (Tree *tree) {
   return !emptyTree(tree)
     ? countNodes(tree->root)
@@ -124,12 +231,11 @@ int main () {
 	Tree tree;
 
   initTree(&tree);
-	srand(time(0));
 
-  for (i=1; i<=12; i++) {
+  for (i=0; i<12; i++) {
 		j = rand() % 20;
 		printf ("%d ", j);
-		insert(j, &tree);
+		insert(&tree, j);
 	}
 
 	printf("\n\nTree - in order\n");
