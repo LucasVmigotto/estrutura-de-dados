@@ -23,8 +23,6 @@ typedef struct {
 } Stack;
 
 /*
- * This method initialize the Stack
- *
  * Define the top as 0 and the length with the
  * value in the parameter.
  *
@@ -38,8 +36,6 @@ void createStack (Stack *stack, int length) {
 }
 
 /*
- * Empty Stack
- *
  * This method checks if the Stack
  * informed is empty
  *
@@ -52,8 +48,6 @@ bool isEmpty (Stack *stack) {
 }
 
 /*
- * Filled Stack
- *
  * This method check if the Stack
  * is already full filled with values
  *
@@ -66,8 +60,6 @@ bool isFill(Stack *stack) {
 }
 
 /*
- * Push Element
- *
  * This method pushes a element into
  * the top of the informed Stack
  *
@@ -79,8 +71,6 @@ void pushElement (int element, Stack *stack) {
 }
 
 /*
- * Remove Element
- *
  * This method remove the element in the
  * top of the informed stack
  *
@@ -94,8 +84,6 @@ int popElement (Stack *stack) {
 }
 
 /*
- * Query the first element
- *
  * This methid inform witch element
  * is current in the stack's top
  *
@@ -108,8 +96,6 @@ int querytopElement (Stack *stack) {
 }
 
 /*
- * Same stacks
- *
  * This method check if two stacks have
  * the exactly same lengths and elements
  *
@@ -135,8 +121,6 @@ bool isSame (Stack *one, Stack *two) {
 }
 
 /*
- * Send elements to other
- *
  * Send the elements of one stack to
  * other.
  *
@@ -155,8 +139,6 @@ void sendElements (Stack *original, Stack *clone) {
 }
 
 /*
- * Parse decimal to binary
- *
  * Receive a decimal value to
  * a binary value
  *
@@ -171,8 +153,6 @@ void toBinary (int decimal, Stack *stack) {
 }
 
 /*
- * Print the stack
- *
  * Print the received stack
  * into the console
  *

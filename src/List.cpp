@@ -21,11 +21,9 @@ struct Node{
 };
 
 /*
- * Create the Node
- *
  * Create the Node in the list
  *
- * @param The value of the Node's info
+ * @param i The value of the Node's info
  * @return The value of the Node
 */
 Node *createNode (int i) {
@@ -50,12 +48,10 @@ typedef struct {
 } List;
 
 /*
- * Init the List's value
- *
  * Initiate the List with the first
  * value as Null
  *
- * @param The List pointer that will be
+ * @param list The List pointer that will be
  * initialize
 */
 void initList (List *list) {
@@ -63,11 +59,9 @@ void initList (List *list) {
 }
 
 /*
- * Empty List
- *
  * Return if the List is empty
  *
- * @param The List that will be checked
+ * @param list The List that will be checked
  *
  * @return Return True if empty
  * or False if isn't
@@ -77,8 +71,6 @@ bool emptyList (List *list) {
 }
 
 /*
- * Insert On Start
- *
  * Insert the given element on the Start
  * of the List
  *
@@ -100,12 +92,10 @@ bool insertStart (List *list, int i) {
 }
 
 /*
- * Remove from the Start
- *
  * Remove an element from the start
  * of the list
  *
- * @param The List that will be used to
+ * @param list The List that will be used to
  * remove the element
  * @return The element that has been removed
 */
@@ -120,12 +110,10 @@ int removeFromStart (List *list) {
 }
 
 /*
- * Show List
- *
  * Show the elements that exists in
  * the List
  *
- * @param The List that will be printed
+ * @param list The List that will be printed
 */
 void showList (List *list) {
 	Node *aux;
@@ -143,12 +131,10 @@ void showList (List *list) {
 }
 
 /*
- * Nodes count
- *
  * Return the node count that exists
  * in the List
  *
- * @param The List that will be used to
+ * @param list The List that will be used to
  * count the Nodes
  * @return The number of nodes
 */
@@ -166,18 +152,16 @@ int nodeCount (List *list) {
 }
 
 /*
- * Insert in the Middle
- *
  * Insert the given element in the
  * informed position, if the position is
  * greater than the List node count
  * the element will be inserted in the end
  * of the List
  *
- * @param The List that will be used to
+ * @param list The List that will be used to
  * insert the element
- * @param The position to insert the element
- * @param The info value to be replaced/inserted
+ * @param position The position to insert the element
+ * @param info The info value to be replaced/inserted
 */
 void insertMiddle (List *list, int position, int info) {
   if (position > nodeCount(list)) {
@@ -202,7 +186,7 @@ void insertMiddle (List *list, int position, int info) {
  * Return the values average that
  * exists in the List
  *
- * @param The List that will be used to
+ * @param list The List that will be used to
  * calculate the average
  * @return The values average
 */

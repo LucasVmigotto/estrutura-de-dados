@@ -28,7 +28,7 @@ typedef struct {
  * Define the length as 0 and initialize
  * the line of elements
  *
- * @param The line that will be crated
+ * @param line The line that will be crated
 */
 void createLine (Line *line) {
   line->elements = (char *) malloc(sizeof(char));
@@ -37,25 +37,21 @@ void createLine (Line *line) {
 }
 
 /*
- * Empty Line
- *
  * This method check if the Line
  * is empty
  *
- * @param The line that will be checked
+ * @param line The line that will be checked
 */
 bool emptyLine (Line *line) {
   return !line->elements;
 }
 
 /*
- * Append to the Start
- *
  * Append the given element to the
  * end of the line
  *
- * @param The element to be added
- * @param The line that will be used
+ * @param element The element to be added
+ * @param line The line that will be used
 */
 void appendToEnd (char element, Line *line) {
   int i;
@@ -73,13 +69,11 @@ void appendToEnd (char element, Line *line) {
 }
 
 /*
- * Enter in line
- *
  * Insert an element to the right
  * position at the line
  *
- * @param The element to be added
- * @param The line that will be used
+ * @param element The element to be added
+ * @param line The line that will be used
 */
 void enterInLine (char element, Line *line) {
   if (emptyLine(line)) {
@@ -93,12 +87,10 @@ void enterInLine (char element, Line *line) {
 }
 
 /*
- * Print line elements
- *
  * Print all the line elements already
  * added
  *
- * @param The line that will be printed
+ * @param line The line that will be printed
 */
 void printLine (Line *line) {
   int i;
@@ -112,14 +104,12 @@ void printLine (Line *line) {
 }
 
 /*
- * Line Walk
- *
  * This method remove the first
  * element of the line and puts
  * every other element in line
  * one position ahead.
  *
- * @param The line that will be
+ * @param line The line that will be
  * manipulated
 */
 void lineWalk (Line *line) {
@@ -141,12 +131,10 @@ void lineWalk (Line *line) {
 }
 
 /*
- * Length
- *
  * This function simulate the length
  * attribute, returning the line's length
  *
- * @param The line that will be counted
+ * @param line The line that will be counted
 */
 int length (Line *line) {
   int i = 0;
@@ -163,17 +151,15 @@ int length (Line *line) {
 }
 
 /*
- * Cut in Line
- *
  * This method puts the given element
  * @param element in the 'first' position
  * of the line, not as the fist element,
  * but as a special that will be attended
  * first than the other
  *
- * @param element: The element that will
+ * @param element The element that will
  * cut in the line of elements
- * @param line: The line that will be modified
+ * @param line The line that will be modified
 */
 void cutInLine (char element, Line *line) {
   line->pushIn = (void *) element;
