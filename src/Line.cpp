@@ -1,5 +1,5 @@
 /**
-  @file ed-4.cpp
+  @file Line.cpp
   @author Lucas Vidor Migotto
   @version 0.0.1 07/07/2020
 */

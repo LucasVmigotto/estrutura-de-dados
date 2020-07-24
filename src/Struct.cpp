@@ -2,14 +2,28 @@
 #include <stdlib.h>
 #include <iostream>
 
+/*
+ * Aluno
+ *
+ * Properties:
+ * - int matricula: A matrícula do Aluno
+ * - char nome: O nome do Aluno
+ * - char curso: O curso estudado
+*/
 typedef struct {
   int matricula;
   char nome;
   char curso;
 } Aluno;
 
-void printAluno (Aluno aluno, int i) {
-  printf("##\t %do Aluno\t ##\n", i + 1);
+/*
+ * printAluno
+ *
+ * Imprime no console os dados do aluno
+ *
+ * @param aluno O Aluno que será impresso
+*/
+void printAluno (Aluno aluno) {
   printf("Matrícula:\t%d\n", aluno.matricula);
   printf("Nome:\t%c\n", aluno.nome);
   printf("Curso:\t%c\n", aluno.curso);
@@ -32,7 +46,8 @@ int main () {
   }
 
   for (i = 0; i < total; i++) {
-    printAluno(alunos[i], i);
+    printf("##\t %do Aluno\t ##\n", i + 1);
+    printAluno(alunos[i]);
     if (i < total - 1) {
       printf("\n-------------------------\n");
     }
