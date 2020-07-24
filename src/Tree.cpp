@@ -257,6 +257,31 @@ int numberOfNodes (Tree *tree) {
     : 0;
 }
 
+/*
+ * Sum recursively the values of the Nodes
+ *
+ * @param node The node that will have it
+ * value added to the sum
+ * @return The value accumulated in the sum
+*/
+int sumNodes (NodeBin *node) {
+  return node != NULL
+    ? node->info + sumNodes(node->right) + sumNodes(node->left)
+    : 0;
+}
+
+/*
+ * Return the sum of the values into
+ * the given tree
+ *
+ * @param tree The tree value that will
+ * be used to sum the inside values
+ * @return The value accumulated in the sum
+*/
+int sumTreeValues (Tree *tree) {
+  return sumNodes(tree->root);
+}
+
 int main () {
 	int i, j;
 	Tree tree;
@@ -279,13 +304,10 @@ int main () {
 
   printf("\n");
 
-	if (emptyTree(&tree)) {
-		printf ("\nEmpty tree\n");
-	} else {
-		printf ("\nGreatest element \t\t| %02d\n", greatestTree(&tree));
-		printf ("Lowest element \t\t\t| %02d\n", lowestTree(&tree));
-  }
-	printf ("\nTree's Nodes count \t\t| %02d\n", numberOfNodes(&tree));
+	printf ("\nGreatest element \t\t| %02d\n", greatestTree(&tree));
+	printf ("Lowest element \t\t\t| %02d\n", lowestTree(&tree));
+	printf ("Tree's Nodes count \t\t| %02d\n", numberOfNodes(&tree));
+  printf("Tree's Node sum \t\t| %02d\n", sumTreeValues(&tree));
 
 	return 0;
 }
