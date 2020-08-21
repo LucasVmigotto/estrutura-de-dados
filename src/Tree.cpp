@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /*
  * Node
@@ -134,12 +133,21 @@ bool insert (Tree *tree, int info) {
  * in order
  *
  * @param node The Node that will be printed
+ * @param order The type of order that will
+ * be used. True if crescent, False if decrescent.
+ * Default True (crescent)
 */
-void showNodeInOrder (NodeBin *node) {
+void showNodeInOrder (NodeBin *node, bool order) {
 	if (node != NULL) {
-		showNodeInOrder(node->left);
-		printf ("%d ", node->info);
-		showNodeInOrder(node->right);
+    if (order) {
+      showNodeInOrder(node->left, order);
+      printf ("%02d ", node->info);
+      showNodeInOrder(node->right, order);
+    } else {
+      showNodeInOrder(node->right, order);
+      printf ("%02d ", node->info);
+      showNodeInOrder(node->left, order);
+    }
 	}
 }
 
@@ -148,12 +156,15 @@ void showNodeInOrder (NodeBin *node) {
  * in order
  *
  * @param tree The Tree that will be printed
+ * @param order The type of order that will
+ * be used. True if crescent, False if decrescent.
+ * Default True (crescent)
 */
-void showTreeInOrder (Tree *tree) {
+void showTreeInOrder (Tree *tree, bool order = true) {
 	if (emptyTree(tree)) {
 		printf ("\nEmpty tree\n");
   } else {
-		showNodeInOrder(tree->root);
+		showNodeInOrder(tree->root, order);
   }
 }
 
@@ -164,7 +175,7 @@ void showTreeInOrder (Tree *tree) {
 */
 void showNodeBeforeOrder (NodeBin *node) {
   if(node != NULL) {
-    printf("%d ", node->info);
+    printf("%02d ", node->info);
     showNodeBeforeOrder(node->left);
     showNodeBeforeOrder(node->right);
   }
@@ -184,23 +195,43 @@ void showTreeBeforeOrder (Tree *tree) {
 }
 
 /*
- * Return the grater value of the given Node
+ * Return the greatest value of the given Node
  *
  * @param node The Node that will be checked
 */
-int greaterTree (NodeBin *node) {
+int greatest (NodeBin *node) {
   return node->right == NULL
     ? node->info
-    : greaterTree(node->right);
+    : greatest(node->right);
 }
 
 /*
- * Return the grater value of the given Tree
+ * Return the greatest value of the given Tree
  *
  * @param tree The Tree that will be checked
 */
-int greater (Tree *tree) {
-	return greaterTree(tree->root);
+int greatestTree (Tree *tree) {
+	return greatest(tree->root);
+}
+
+/*
+ * Return the lowest value of the given Node
+ *
+ * @param node The Node that will be checked
+*/
+int lowest (NodeBin *node) {
+  return node->left == NULL
+    ? node->info
+    : lowest(node->left);
+}
+
+/*
+ * Return the lowest value of the given Tree
+ *
+ * @param tree The Tree that will be checked
+*/
+int lowestTree (Tree *tree) {
+	return lowest(tree->root);
 }
 
 /*
@@ -226,6 +257,31 @@ int numberOfNodes (Tree *tree) {
     : 0;
 }
 
+/*
+ * Sum recursively the values of the Nodes
+ *
+ * @param node The node that will have it
+ * value added to the sum
+ * @return The value accumulated in the sum
+*/
+int sumNodes (NodeBin *node) {
+  return node != NULL
+    ? node->info + sumNodes(node->right) + sumNodes(node->left)
+    : 0;
+}
+
+/*
+ * Return the sum of the values into
+ * the given tree
+ *
+ * @param tree The tree value that will
+ * be used to sum the inside values
+ * @return The value accumulated in the sum
+*/
+int sumTreeValues (Tree *tree) {
+  return sumNodes(tree->root);
+}
+
 int main () {
 	int i, j;
 	Tree tree;
@@ -234,19 +290,24 @@ int main () {
 
   for (i=0; i<12; i++) {
 		j = rand() % 20;
-		printf ("%d ", j);
 		insert(&tree, j);
 	}
 
-	printf("\n\nTree - in order\n");
+  printf("Tree - out of order\t\t| ");
+	showTreeBeforeOrder(&tree);
+  printf("\n");
+	printf("Tree - in order (crescent)\t| ");
 	showTreeInOrder(&tree);
+  printf("\n");
+  printf("Tree - in order (decrescent)\t| ");
+	showTreeInOrder(&tree, false);
 
-	if (emptyTree(&tree)) {
-		printf ("\nEmpty tree\n");
-	} else {
-		printf ("\nGreater element = %d\n", greater(&tree));
-  }
-	printf ("\nnumero de nos da arvore = %d\n", numberOfNodes(&tree));
+  printf("\n");
+
+	printf ("\nGreatest element \t\t| %02d\n", greatestTree(&tree));
+	printf ("Lowest element \t\t\t| %02d\n", lowestTree(&tree));
+	printf ("Tree's Nodes count \t\t| %02d\n", numberOfNodes(&tree));
+  printf("Tree's Node sum \t\t| %02d\n", sumTreeValues(&tree));
 
 	return 0;
 }
